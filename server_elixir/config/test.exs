@@ -7,6 +7,7 @@ import Config
 # Run `mix help test` for more information.
 config :server_elixir, ServerElixir.Repo,
   database: Path.expand("../data/emissio.test.db", Path.dirname(__ENV__.file)),
+  pool: Ecto.Adapters.SQL.Sandbox,
   pool_size: 5,
   stacktrace: true,
   show_sensitive_data_on_connection_error: true
