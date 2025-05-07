@@ -1,15 +1,25 @@
-import {Request, Response} from 'express';
+import { Request, Response } from 'express';
 import { ActivityService } from '../services/activity.service';
 
 export class ActivityController {
-    static getAll(req: Request, res: Response): void {
-        const activities = ActivityService.getAll();
-        res.json(activities);
+    constructor(private activityService: ActivityService) { }
+
+    getAll = (req: Request, res: Response): void => {
+        const result = this.activityService.getAll();
+        if (result.success === false) {
+            res.status(500).json(result);
+            return;
+        }
+        res.status(200).json(result);
     }
 
-    static create(req: Request, res: Response): void {
+    create = (req: Request, res: Response): void => {
         const { type, co2e } = req.body;
-        const activity = ActivityService.create(type, co2e);
-        res.status(201).json(activity);
+        const result = this.activityService.create(type, co2e);
+        if (result.success === false) {
+            res.status(400).json(result);
+            return;
+        }
+        res.status(201).json(result);
     }
 }
