@@ -1,0 +1,9 @@
+<label>
+    {{label}}
+    <input [type]="type" [formControl]="control" [placeholder]="placeholder" />
+</label>
+@if (control?.invalid && control?.touched) {
+<div class="error">
+    {{ errorMessage || 'Invalid input' }}
+</div>
+}

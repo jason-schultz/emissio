@@ -1,0 +1,15 @@
+<app-card>
+    <h2>Top Sources</h2>
+    <ul>
+        @for (source of topSources; track source.source) {
+        <li>
+            <span>{{ source.emoji }}</span>
+            <span>{{ source.source}} - {{ source.value }} kg CO₂e</span>
+
+        </li>
+        } @empty {
+        <li>
+            <span>No data available</span>
+        </li>}
+    </ul>
+</app-card>

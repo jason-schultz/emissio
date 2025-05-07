@@ -1,59 +1,123 @@
-# Emissio
+# 🌱 Emissio
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.10.
+**Emissio** is a demo project built to learn and showcase modern **Angular** application development. It allows individuals to track their **carbon emissions** based on everyday activities and visualize where they might reduce their personal CO₂ output.
 
-## Development server
+The project is designed to be both a technical learning tool and a starting point for further development around sustainability tracking.
 
-To start a local development server, run:
+---
 
-```bash
-ng serve
-```
+## 🧩 Features
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- Track carbon-emitting activities (e.g. driving, electricity use)
+- View total weekly/monthly emissions
+- See top sources of emissions
+- View charts and recent activity logs
+- Designed for responsiveness and modular component reuse
+- Built with Angular 19 and standalone component architecture
 
-## Code scaffolding
+---
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## 🔁 Dual Backend Support
 
-```bash
-ng generate component component-name
-```
+This project includes **two backend implementations**:
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+| Backend     | Tech Stack | Purpose                                       |
+|-------------|------------|-----------------------------------------------|
+| `server_elixir` | Elixir + Phoenix | Preferred backend for development (author’s choice) |
+| `server_node`   | Node.js + TypeScript + SQLite | Alternative backend for accessibility or preference |
 
-```bash
-ng generate --help
-```
+You can run **either** backend and choose which to connect to from the Angular frontend.
 
-## Building
+---
 
-To build the project run:
+## 🚀 Getting Started
 
-```bash
-ng build
-```
+### 🔧 Prerequisites
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+- [Node.js](https://nodejs.org/) (v18+)
+- [Elixir](https://elixir-lang.org/) (for Phoenix backend)
+- [npm](https://www.npmjs.com/) / [pnpm](https://pnpm.io/) for managing frontend
 
-## Running unit tests
+---
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+### 📦 1. Install Angular Frontend
 
 ```bash
-ng e2e
+cd client
+npm install
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+### 🖥 2. Start a Backend Server
 
-## Additional Resources
+### ▶️ To start the Elixir (Phoenix) backend:
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```
+cd server_elixir
+mix deps.get
+mix ecto.setup   # Creates and migrates the SQLite DB
+mix phx.server
+```
+
+The Elixir backend runs at http://localhost:9876.
+
+### To start the Node (TypeScript) backend:
+```
+cd server_node
+npm install
+npm start
+```
+The Node backend runs at http://localhost:3456.
+
+### 3. Start Angular Frontend
+Back in the client/ folder:
+```
+# To connect to the Node backend
+npm run start:node
+
+# To connect to the Elixir backend
+npm run start:elixir
+```
+
+Make sure the backend server you want to use is running before starting the frontend.
+
+### ⚙️ Configuration
+
+The Angular app uses environment-based configs in:
+```
+src/environments/
+├── environment.node.ts
+├── environment.elixir.ts
+```
+These control the apiBaseUrl the app connects to.
+
+### 🧠 Why Two Backends?
+
+The project includes both:
+
+Elixir (for those who prefer functional programming and Phoenix)
+Node (for those who want a fast, typed JS-based API)
+They provide the same API interface (/api/activities) and use SQLite for local persistence.
+
+### 📌 Project Goals
+
+Learn and showcase Angular 19 standalone architecture
+Practice building a structured, scalable fullstack app
+Demonstrate how clean services and modular components can be reused across views
+Provide a realistic but approachable app for showcasing frontend/backend integration
+
+### 📷 Screenshots
+
+TODO: Add dashboard and chart screenshots here.
+
+### 📄 License
+
+MIT — use and modify as needed.
+
+### Project Structure
+```
+emissio/
+├── client/           # Angular frontend application
+├── server_node/      # Node.js backend implementation
+├── server_elixir/    # Elixir/Phoenix backend implementation
+└── README.md
+```
