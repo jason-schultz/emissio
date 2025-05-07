@@ -1,6 +1,6 @@
-import { ActivityService } from '../src/services/activity.service';
-import { ActivityListResult, ActivityResult } from '../src/models/activity.model';
-import { beforeEach, describe, it, expect, jest } from '@jest/globals';
+import { ActivityService } from '../../src/services/activity.service';
+import { ActivityListResult, ActivityResult } from '../../src/models/activity.model';
+import { beforeEach, describe, it, expect} from '@jest/globals';
 import Database from 'better-sqlite3';
 
 let db: Database.Database;
