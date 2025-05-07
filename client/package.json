@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "echo 'Error: Please specify a backend by using npm run start:node or npm run start:elixir' && exit 1",
     "start:node": "ng serve --configuration=node",
     "start:elixir": "ng serve --configuration=elixir",
     "build": "ng build",

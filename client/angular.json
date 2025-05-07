@@ -35,7 +35,7 @@
             "node": {
               "fileReplacements": [
                 {
-                  "replace": "src/environments/environment.ts",
+                  "replace": "src/environments/env.ts",
                   "with": "src/environments/env.node.ts"
                 }
               ]
@@ -43,7 +43,7 @@
             "elixir": {
               "fileReplacements": [
                 {
-                  "replace": "src/environments/environment.ts",
+                  "replace": "src/environments/env.ts",
                   "with": "src/environments/env.elixir.ts"
                 }
               ]
