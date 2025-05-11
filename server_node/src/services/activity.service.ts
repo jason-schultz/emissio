@@ -4,6 +4,20 @@ import { Activity, ActivityListResult, ActivityResult } from '../models/activity
 export class ActivityService {
     constructor(private db: DatabaseType) { }
 
+    delete(id: number): ActivityResult {
+        try {
+            const result = this.db.prepare('DELETE FROM activities WHERE id = ?').run(id);
+            if (result.changes === 0) {
+                return { success: false, error: 'Activity not found' };
+            }
+            return { success: true, data: null };
+        }
+        catch (error) {
+            console.error('Error deleting activity:', error);
+            return { success: false, error: 'Failed to delete activity' };
+        }
+    }
+
     getAll(): ActivityListResult {
         try {
             const rows = this.db.prepare('SELECT * FROM activities ORDER BY timestamp DESC').all();
@@ -15,12 +29,35 @@ export class ActivityService {
         }
     }
 
+    getById(id: number): ActivityResult {
+        try {
+            const row = this.db.prepare('SELECT * FROM activities WHERE id = ?').get(id);
+            if (!row) {
+                return { success: false, error: 'Activity not found' };
+            }
+            return { success: true, data: row as Activity };
+        }
+        catch (error) {
+            console.error('Error fetching activity by ID:', error);
+            return { success: false, error: 'Failed to fetch activity' };
+        }
+    }
+
+
+
     create(type: string, co2e: number): ActivityResult {
         try {
+            if (co2e <= 0) {
+                return { success: false, error: 'CO2e must be a positive number' };
+            }
+
+            if (type.length === 0) {
+                return { success: false, error: 'Type must be a non-empty string' };
+            }
+
             if (!type || typeof co2e !== 'number') {
                 throw new Error('Invalid input data');
             }
-
             const timestamp = new Date().toISOString();
 
             const result = this.db.prepare('INSERT INTO activities (type, co2e, timestamp) VALUES (?, ?, ?)').run(type, co2e, timestamp);
@@ -39,4 +76,40 @@ export class ActivityService {
             return { success: false, error: 'Failed to create activity' };
         }
     }
+
+    update = (id: number, attrs: Omit<Activity, 'id' | 'timestamp'>): ActivityResult => {
+        const { type, co2e } = attrs;
+        try {
+            if (co2e <= 0) {
+                return { success: false, error: 'CO2e must be a positive number' };
+            }
+            if (type.length === 0) {
+                return { success: false, error: 'Type must be a non-empty string' };
+            }
+
+            if (!type || typeof co2e !== 'number') {
+                throw new Error('Invalid input data');
+            }
+
+            const result = this.db.prepare('UPDATE activities SET type = ?, co2e = ? WHERE id = ?').run(type, co2e, id);
+
+            if (result.changes === 0) {
+                return { success: false, error: 'Activity not found' };
+            }
+
+            const updatedActivity = {
+                id,
+                type,
+                co2e,
+                timestamp: new Date().toISOString()
+            };
+
+            return { success: true, data: updatedActivity };
+        }
+        catch (error) {
+            console.error('Error updating activity:', error);
+            return { success: false, error: 'Failed to update activity' };
+        }
+    }
+
 }
