@@ -2,7 +2,6 @@ defmodule ServerElixirWeb.ActivityController do
   use ServerElixirWeb, :controller
 
   alias ServerElixir.Activities
-  alias ServerElixir.Activities.Activity
 
   def index(conn, _params) do
     activities = Activities.list_activities()
@@ -25,19 +24,55 @@ defmodule ServerElixirWeb.ActivityController do
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
-        |> render(ServerElixirWeb.ErrorJSON, "error.json", changeset: changeset)
+        |> put_view(ServerElixirWeb.ErrorJSON)
+        |> render("error.json", changeset: changeset)
+    end
+  end
+
+  def update(conn, %{"id" => id} = params) do
+    activity = Activities.get_activity(id)
+    attrs = Map.merge(params, %{"timestamp" => DateTime.utc_now()})
+
+    case Activities.update_activity(
+           activity,
+           attrs
+         ) do
+      {:ok, activity} ->
+        render(conn, :show, data: activity)
+
+      {:error, changeset} ->
+        conn
+        |> put_status(:unprocessable_entity)
+        |> put_view(ServerElixirWeb.ErrorJSON)
+        |> render("error.json", changeset: changeset)
+    end
+  end
+
+  def delete(conn, %{"id" => id}) do
+    case Activities.delete_activity(id) do
+      {:ok, _activity} ->
+        conn
+        |> put_status(:no_content)
+        |> render(:no_content)
+
+      {:error, changeset} ->
+        conn
+        |> put_status(:unprocessable_entity)
+        |> put_view(ServerElixirWeb.ErrorJSON)
+        |> render("error.json", changeset: changeset)
     end
   end
 
   def show(conn, %{"id" => id}) do
-    case Activities.get_activity!(id) do
+    case Activities.get_activity(id) do
       activity ->
         render(conn, :show, data: activity)
 
-      nil ->
+      _ ->
         conn
         |> put_status(:not_found)
-        |> render(ServerElixirWeb.ErrorJSON, "error.json", message: "Activity not found")
+        |> put_view(ServerElixirWeb.ErrorJSON)
+        |> render(:not_found_error, message: "Activity not found")
     end
   end
 end

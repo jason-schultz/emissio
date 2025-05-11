@@ -19,4 +19,10 @@ defmodule ServerElixirWeb.ActivityJSON do
       timestamp: activity.timestamp |> DateTime.to_iso8601()
     }
   end
+
+  defp activity_json(_),
+    do: %{
+      success: false,
+      message: "Invalid activity data"
+    }
 end

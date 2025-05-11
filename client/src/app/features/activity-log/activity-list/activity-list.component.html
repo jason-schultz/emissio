@@ -1,0 +1,16 @@
+<app-page-header title="Activity Log" subtitle="All your carbon activities"></app-page-header>
+
+<app-button label="Add Activity" (click)="onAdd()"></app-button>
+
+<div class="list">
+    <app-card *ngFor="let a of activities" class="item">
+        <div class="info">
+            <strong>{{ a.type }}</strong> — {{ a.co2e }}<br />
+            <small>{{ a.timestamp | date:'medium' }}</small>
+        </div>
+        <div class="actions">
+            <a (click)="onEdit(a.id)">Edit</a>
+            <a (click)="onDelete(a.id)">Delete</a>
+        </div>
+    </app-card>
+</div>

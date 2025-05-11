@@ -8,7 +8,7 @@ defmodule ServerElixirWeb.Router do
   scope "/api", ServerElixirWeb do
     pipe_through(:api)
 
-    resources "/activities", ActivityController, only: [:index, :create, :show]
+    resources "/activities", ActivityController, only: [:index, :create, :show, :update, :delete]
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development

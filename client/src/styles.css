@@ -1,1 +1,47 @@
+/* at the very top of src/styles.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 /* You can add global styles to this file, and also import other style files */
+:root {
+    --font-base: 'Inter', system-ui, -apple-system, sans-serif;
+    --clr-primary: #73877b;
+    --clr-secondary: #839788;
+    --clr-light: #bdbbb6;
+    --clr-accent: #e5d1d0;
+    --clr-highlight: #f5e4d7;
+
+    --clr-link: #3366CC;
+    /* vivid royal blue               */
+    --clr-link-hover: #254A99;
+    /* deeper navy blue for hover     */
+    --clr-link-active: #1A315F;
+    /* darkest blue for active state  */
+}
+
+body {
+    font-family: var(--font-base);
+    line-height: 1.6;
+    color: var(--clr-primary);
+}
+
+a {
+    color: var(--clr-link);
+    text-decoration: underline;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--clr-link-hover);
+}
+
+
+a:active,
+a.active {
+    color: var(--clr-link-active);
+}
+
+/* #73877b,
+#839788,
+#bdbbb6,
+#e5d1d0,
+#f5e4d7 */

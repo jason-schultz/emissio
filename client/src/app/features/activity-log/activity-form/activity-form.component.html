@@ -1,0 +1,10 @@
+<app-page-header [title]="id ? 'Edit Activity' : 'New Activity'" subtitle="Log your carbon footprint"></app-page-header>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <app-input-field label="Activity Type" [control]="form.controls.type" errorMessage="Required"></app-input-field>
+
+    <app-input-field label="CO₂ Emissions (kg)" type="number" [control]="form.controls.co2e"
+        errorMessage="Must be ≥ 0"></app-input-field>
+
+    <app-button [label]="id ? 'Save Changes' : 'Add Activity'" [type]="'submit'" [disabled]="form.invalid"></app-button>
+</form>

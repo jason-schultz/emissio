@@ -18,4 +18,11 @@ defmodule ServerElixirWeb.ErrorJSON do
   def render(template, _assigns) do
     %{errors: %{detail: Phoenix.Controller.status_message_from_template(template)}}
   end
+
+  def not_found(assigns) do
+    %{
+      data: [],
+      message: assigns[:message] || "Resource not found"
+    }
+  end
 end

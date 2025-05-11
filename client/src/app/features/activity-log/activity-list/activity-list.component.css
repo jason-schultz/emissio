@@ -1,0 +1,26 @@
+.list {
+    margin-top: 1rem;
+    display: grid;
+    gap: 1rem;
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.actions a {
+    margin-left: 1rem;
+    color: var(--clr-link);
+    cursor: pointer;
+}
+
+.actions a:hover {
+    color: var(--clr-link-hover);
+}
+
+.actions a:active,
+.actions a.active {
+    color: var(--clr-link-active);
+}
