@@ -28,8 +28,15 @@ export class ActivityController {
     }
 
     create = (req: Request, res: Response): void => {
-        const { type, co2e } = req.body;
-        const result = this.activityService.create(type, co2e);
+        const { type } = req.body;
+        const co2eValue = parseFloat(req.body.co2e);
+
+        if (isNaN(co2eValue) || co2eValue <= 0) {
+            res.status(400).json({ success: false, message: 'Invalid CO2e value. Must be a number.' });
+            return;
+        }
+
+        const result = this.activityService.create(type, co2eValue);
         if (result.success === false) {
             res.status(400).json(result);
             return;

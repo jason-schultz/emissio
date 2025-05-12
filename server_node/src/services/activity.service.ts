@@ -56,6 +56,7 @@ export class ActivityService {
             }
 
             if (!type || typeof co2e !== 'number') {
+                console.error('Invalid input data:', { type, co2e });
                 throw new Error('Invalid input data');
             }
             const timestamp = new Date().toISOString();
