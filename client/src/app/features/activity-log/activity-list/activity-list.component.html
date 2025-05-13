@@ -1,16 +1,48 @@
-<app-page-header title="Activity Log" subtitle="All your carbon activities"></app-page-header>
+<app-page-header title="Activity Log" subtitle="All recorded activities"></app-page-header>
 
-<app-button label="Add Activity" (click)="onAdd()"></app-button>
+<div class="activity-log-container">
+    <div class="table-actions">
+        <app-button (click)="onAdd()" icon="add_circle_outline" text="Add New Activity" />
+    </div>
 
-<div class="list">
-    <app-card *ngFor="let a of activities" class="item">
-        <div class="info">
-            <strong>{{ a.type }}</strong> — {{ a.co2e }}<br />
-            <small>{{ a.timestamp | date:'medium' }}</small>
-        </div>
-        <div class="actions">
-            <a (click)="onEdit(a.id)">Edit</a>
-            <a (click)="onDelete(a.id)">Delete</a>
-        </div>
-    </app-card>
+    <div *ngIf="isLoading" class="loading-indicator">
+        Loading activities...
+    </div>
+
+    <div *ngIf="error" class="error-message">
+        {{ error }}
+    </div>
+
+    <div *ngIf="!isLoading && !error" class="table-responsive">
+        <table class="activities-table">
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>CO2e (kg)</th>
+                    <th>Timestamp</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let activity of activities">
+                    <td>{{ activity.type }}</td>
+                    <td>{{ activity.co2e | number:'1.1-2' }}</td>
+                    <td>{{ activity.timestamp | date:'medium' }}</td>
+                    <td class="actions-cell">
+                        <app-button (click)="onEdit(activity.id)" variant="icon" icon="edit" aria-label="Edit" />
+
+                        <app-button (click)="onDelete(activity.id)" variant="icon" icon="delete" color="warn"
+                            aria-label="Delete" />
+
+
+                    </td>
+                </tr>
+                <tr *ngIf="activities.length === 0 && !isLoading">
+                    <td colspan="4" class="no-activities">
+                        No activities recorded yet.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

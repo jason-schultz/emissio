@@ -1,26 +1,127 @@
-.list {
-    margin-top: 1rem;
-    display: grid;
-    gap: 1rem;
+.activity-log-container {
+    padding: var(--page-padding, 20px);
+    /* Use global padding variable */
+    max-width: var(--container-max-width, 1200px);
+    /* Optional: constrain width */
+    margin: 0 auto;
+    /* Center the container if max-width is set */
 }
 
-.item {
+.table-actions {
+    margin-bottom: var(--spacing-medium, 1.5rem);
+    /* Increased spacing */
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: flex-end;
+    /* Align button to the right */
 }
 
-.actions a {
-    margin-left: 1rem;
-    color: var(--clr-link);
-    cursor: pointer;
+.table-responsive {
+    overflow-x: auto;
+    /* Allows table to scroll horizontally on small screens */
+    border: 1px solid var(--table-border-color, #e0e0e0);
+    /* Border around the scrollable area */
+    border-radius: var(--border-radius-large, 8px);
+    /* Rounded corners for the table container */
+    box-shadow: var(--shadow-medium, 0 2px 8px rgba(0, 0, 0, 0.1));
+    /* Softer shadow */
+    background-color: var(--color-surface, white);
+    /* Background for the table area */
 }
 
-.actions a:hover {
-    color: var(--clr-link-hover);
+.activities-table {
+    width: 100%;
+    border-collapse: collapse;
+    /* Important for clean borders */
+    /* Removed individual table border, background, shadow, radius as it's on .table-responsive now */
 }
 
-.actions a:active,
-.actions a.active {
-    color: var(--clr-link-active);
+.activities-table th,
+.activities-table td {
+    padding: var(--table-cell-padding-y, 12px) var(--table-cell-padding-x, 16px);
+    /* Generous padding */
+    text-align: left;
+    color: var(--text-color-default, #333);
+    border-bottom: 1px solid var(--table-row-divider-color, #e9ecef);
+    /* Lighter row dividers */
 }
+
+.activities-table thead th {
+    background-color: var(--table-header-bg, #f8f9fa);
+    /* Light header background */
+    font-weight: var(--font-weight-semibold, 600);
+    color: var(--table-header-text-color, #495057);
+    /* Slightly muted header text */
+    border-bottom-width: 2px;
+    /* Make header bottom border slightly thicker */
+    border-bottom-color: var(--table-header-border-color, #dee2e6);
+    position: sticky;
+    /* Optional: make header sticky if table scrolls vertically */
+    top: 0;
+    /* Required for sticky header */
+    z-index: 1;
+    /* Ensure header stays above scrolling content */
+}
+
+/* Remove border from the last row of td elements */
+.activities-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Zebra striping for better readability */
+.activities-table tbody tr:nth-child(even) {
+    background-color: var(--table-row-even-bg, #fdfdfd);
+    /* Very light alternating row color */
+}
+
+/* Hover effect for rows */
+.activities-table tbody tr:hover {
+    background-color: var(--table-row-hover-bg, #f1f3f5);
+    /* Subtle hover effect */
+}
+
+.actions-cell {
+    text-align: right;
+    /* Align action buttons to the right of their cell */
+    white-space: nowrap;
+    /* Prevent buttons from wrapping */
+    padding-right: var(--table-cell-padding-x, 16px);
+    /* Ensure padding on the right */
+}
+
+.actions-cell app-button {
+    margin-left: var(--spacing-xsmall, 0.5rem);
+    /* Reduced margin between action buttons */
+}
+
+/* Ensure app-button in actions-cell doesn't get too large if it has default min-width */
+.actions-cell app-button.app-button--icon-only {
+    /* Styles for icon-only buttons if they need specific sizing here */
+    /* e.g., width: 32px; height: 32px; */
+}
+
+.no-activities {
+    text-align: center;
+    font-style: italic;
+    color: var(--text-color-muted, #6c757d);
+    /* Muted color */
+    padding: var(--spacing-xlarge, 2rem) 0;
+    /* More padding for empty state */
+}
+
+.loading-indicator,
+.error-message {
+    padding: var(--spacing-medium, 1.5rem);
+    text-align: center;
+    color: var(--text-color-default, inherit);
+    border-radius: var(--border-radius-medium, 8px);
+    margin-bottom: var(--spacing-medium, 1.5rem);
+}
+
+.loading-indicator {
+    background-color: var(--color-surface-alt, #e9ecef);
+}
+
+.error-message {
+    color: var(--color-error-text, #721c24);
+    background-color: var(--color-error-background, #f8d7da);
+    border: 1px solid var(--color-error-border, #f5c6cb); }

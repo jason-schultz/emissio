@@ -1,17 +1,72 @@
-button {
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    border: none;
-    font-weight: bold;
+.app-button {
+    /* Your existing button styles */
+    display: inline-flex;
+    /* Important for aligning icon and text */
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    border: 1px solid transparent;
+    border-radius: 4px;
     cursor: pointer;
+    font-size: 14px;
+    line-height: 1.5;
+    text-decoration: none;
+    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
-.primary {
-    background-color: #007bff;
-    color: white;
+/* ... your existing color and variant styles ... */
+
+.app-button .material-icons {
+    font-size: 1.25em;
+    /* Adjust icon size relative to button text */
+    line-height: 1;
+    /* Ensure it doesn't mess with button height */
 }
 
-.secondary {
-    background-color: #f0f0f0;
-    color: #333;
+.app-button .button-icon--start {
+    margin-right: 8px;
+    /* Space between icon and text if both are present */
+}
+
+.app-button--icon-only {
+    padding: 8px;
+    /* Adjust padding for icon-only buttons */
+    min-width: auto;
+    /* Allow button to shrink to icon size */
+    border-radius: 50%;
+    /* Make icon buttons circular, optional */
+}
+
+.app-button--icon-only .material-icons {
+    margin-right: 0;
+    /* No margin if it's an icon-only button */
+}
+
+/* Example: Primary button style */
+.app-button--primary {
+    background-color: var(--color-primary, #007bff);
+    color: var(--color-primary-contrast, white);
+    border-color: var(--color-primary, #007bff);
+}
+
+.app-button--primary:hover:not(:disabled) {
+    background-color: var(--color-primary-dark, #0056b3);
+    border-color: var(--color-primary-dark, #0056b3);
+}
+
+/* Example: Warn button style */
+.app-button--warn {
+    background-color: var(--color-warn, #dc3545);
+    color: var(--color-warn-contrast, white);
+    border-color: var(--color-warn, #dc3545);
+}
+
+.app-button--warn:hover:not(:disabled) {
+    background-color: var(--color-warn-dark, #c82333);
+    border-color: var(--color-warn-dark, #c82333);
+}
+
+.app-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }

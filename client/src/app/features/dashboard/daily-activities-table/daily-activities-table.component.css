@@ -1,0 +1,44 @@
+.daily-activities-container {
+    margin-top: 20px;
+    padding: 15px;
+}
+
+.card-header {
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.activities-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.activities-table th,
+.activities-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.activities-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+.no-activities {
+    text-align: center;
+    font-style: italic;
+    color: #777;
+}
+
+.loading-indicator,
+.error-message {
+    padding: 10px;
+    text-align: center;
+}
+
+.error-message {
+    color: red;
+}

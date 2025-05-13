@@ -6,5 +6,5 @@
     <app-input-field label="CO₂ Emissions (kg)" type="number" [control]="form.controls.co2e"
         errorMessage="Must be ≥ 0"></app-input-field>
 
-    <app-button [label]="id ? 'Save Changes' : 'Add Activity'" [type]="'submit'" [disabled]="form.invalid"></app-button>
+    <app-button [text]="id ? 'Save Changes' : 'Add Activity'" [type]="'submit'" [disabled]="form.invalid"></app-button>
 </form>

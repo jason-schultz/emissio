@@ -5,6 +5,7 @@ import { EmissionSummaryComponent } from './emission-summary/emission-summary.co
 import { TopSourcesComponent } from './top-sources/top-sources.component';
 import { EmissionChartComponent } from './emission-chart/emission-chart.component';
 import { Activity, ActivityService } from '../../core/services/activity.service';
+import { DailyActivitiesTableComponent } from "./daily-activities-table/daily-activities-table.component";
 
 @Component({
   selector: 'app-dashboard',
@@ -13,8 +14,9 @@ import { Activity, ActivityService } from '../../core/services/activity.service'
     EmissionChartComponent,
     EmissionSummaryComponent,
     PageHeaderComponent,
-    TopSourcesComponent
-  ],
+    TopSourcesComponent,
+    DailyActivitiesTableComponent
+],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })

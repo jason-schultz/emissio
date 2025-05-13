@@ -1,3 +1,11 @@
-<button [attr.type]="type" [disabled]="disabled" [class]="variant">
-    {{label}}
+<button [type]="type" class="app-button" [class.app-button--primary]="color === 'primary'"
+    [class.app-button--accent]="color === 'accent'" [class.app-button--warn]="color === 'warn'"
+    [class.app-button--outlined]="variant === 'outlined'" [class.app-button--text]="variant === 'text'"
+    [class.app-button--icon-only]="isIconButton" [disabled]="disabled" (click)="onClick($event)"
+    [attr.aria-label]="ariaLabel || (isIconButton && icon ? icon : text)">
+    <span *ngIf="icon && !isIconButton" class="material-icons button-icon--start">{{ icon }}</span>
+    <span *ngIf="text" class="button-text">{{ text }}</span>
+    <span *ngIf="icon && isIconButton" class="material-icons">{{ icon }}</span>
+    <!-- For icon after text, you could add another span here -->
+    <ng-content></ng-content> <!-- If you want to allow content projection for more complex button content -->
 </button>

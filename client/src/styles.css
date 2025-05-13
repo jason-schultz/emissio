@@ -1,4 +1,5 @@
 /* at the very top of src/styles.css */
+@import 'material-icons/iconfont/material-icons.css';
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 /* You can add global styles to this file, and also import other style files */
@@ -16,6 +17,34 @@
     /* deeper navy blue for hover     */
     --clr-link-active: #1A315F;
     /* darkest blue for active state  */
+
+    --page-padding: 20px;
+    --container-max-width: 1200px;
+    --spacing-medium: 1.5rem;
+    --spacing-xsmall: 0.5rem;
+    --spacing-xlarge: 2rem;
+    --border-radius-large: 8px;
+    --border-radius-medium: 6px;
+    --shadow-medium: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --color-surface: white;
+    --color-surface-alt: #f8f9fa;
+    /* For loading indicator or alternate backgrounds */
+    --table-border-color: #e0e0e0;
+    --table-row-divider-color: #e9ecef;
+    --table-cell-padding-y: 12px;
+    --table-cell-padding-x: 16px;
+    --table-header-bg: #f8f9fa;
+    --table-header-text-color: #495057;
+    --table-header-border-color: #dee2e6;
+    --table-row-even-bg: #fdfdfd;
+    /* Very subtle for zebra striping */
+    --table-row-hover-bg: #f1f3f5;
+    --font-weight-semibold: 600;
+    --text-color-default: #212529;
+    --text-color-muted: #6c757d;
+    --color-error-text: #721c24;
+    --color-error-background: #f8d7da;
+    --color-error-border: #f5c6cb;
 }
 
 body {

@@ -1,0 +1,38 @@
+<div class="daily-activities-container card">
+    <div class="card-header">
+        <h3>Activities for: {{ selectedDate | date:'longDate' }}</h3>
+        <!-- Placeholder for a date picker to add one later -->
+        <!-- <input type="date" [value]="selectedDate | date:'yyyy-MM-dd'" (change)="onDateChange($event.target.valueAsDate)"> -->
+    </div>
+
+    <div *ngIf="isLoading" class="loading-indicator">
+        Loading activities...
+    </div>
+
+    <div *ngIf="error" class="error-message">
+        {{ error }}
+    </div>
+
+    <div *ngIf="!isLoading && !error">
+        <table class="activities-table">
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>CO2e (kg)</th>
+                    <!-- Add more columns if needed, e.g., timestamp -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let activity of activities">
+                    <td>{{ activity.type }}</td>
+                    <td>{{ activity.co2e | number:'1.1-2' }}</td>
+                </tr>
+                <tr *ngIf="activities.length === 0">
+                    <td colspan="2" class="no-activities">
+                        No activities recorded for this date.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
