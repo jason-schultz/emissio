@@ -49,17 +49,31 @@ defmodule ServerElixirWeb.ActivityController do
   end
 
   def delete(conn, %{"id" => id}) do
-    case Activities.delete_activity(id) do
-      {:ok, _activity} ->
+    case Activities.get_activity(id) do
+      nil ->
         conn
-        |> put_status(:no_content)
-        |> render(:no_content)
-
-      {:error, changeset} ->
-        conn
-        |> put_status(:unprocessable_entity)
+        |> put_status(:not_found)
         |> put_view(ServerElixirWeb.ErrorJSON)
-        |> render("error.json", changeset: changeset)
+        # Assuming you have a :not_found or :render_not_found in ErrorJSON
+        |> render(:not_found, message: "Activity not found")
+
+      activity ->
+        case Activities.delete_activity(activity) do
+          {:ok, _deleted_activity} ->
+            conn
+            |> put_status(:no_content)
+            # Send the response without rendering a view
+            |> send_resp(:no_content, "")
+
+          # Assuming delete_activity might return a changeset on error
+          {:error, _changeset} ->
+            conn
+            # Or :unprocessable_entity if it's a validation error
+            |> put_status(:internal_server_error)
+            |> put_view(ServerElixirWeb.ErrorJSON)
+            # Or use changeset
+            |> render("error.json", message: "Failed to delete activity")
+        end
     end
   end
 
