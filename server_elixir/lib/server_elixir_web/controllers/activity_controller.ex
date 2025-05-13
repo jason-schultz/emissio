@@ -30,21 +30,30 @@ defmodule ServerElixirWeb.ActivityController do
   end
 
   def update(conn, %{"id" => id} = params) do
-    activity = Activities.get_activity(id)
-    attrs = Map.merge(params, %{"timestamp" => DateTime.utc_now()})
-
-    case Activities.update_activity(
-           activity,
-           attrs
-         ) do
-      {:ok, activity} ->
-        render(conn, :show, data: activity)
-
-      {:error, changeset} ->
+    # Attempt to fetch the activity first
+    case Activities.get_activity(id) do
+      nil ->
+        # Activity not found, return 404
         conn
-        |> put_status(:unprocessable_entity)
+        |> put_status(:not_found)
+        # Ensure this view is set up for :not_found
         |> put_view(ServerElixirWeb.ErrorJSON)
-        |> render("error.json", changeset: changeset)
+        # Or your generic not_found render
+        |> render(:not_found, message: "Activity not found")
+
+      activity ->
+        update_attrs = Map.merge(params, %{"timestamp" => DateTime.utc_now()})
+
+        case Activities.update_activity(activity, update_attrs) do
+          {:ok, updated_activity} ->
+            render(conn, :show, data: updated_activity)
+
+          {:error, changeset} ->
+            conn
+            |> put_status(:unprocessable_entity)
+            |> put_view(ServerElixirWeb.ErrorJSON)
+            |> render("error.json", changeset: changeset)
+        end
     end
   end
 

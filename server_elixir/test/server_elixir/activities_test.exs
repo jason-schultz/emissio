@@ -2,16 +2,19 @@ defmodule ServerElixir.ActivitiesTest do
   use ServerElixir.DataCase, async: true
 
   alias ServerElixir.Activities
-  alias ServerElixir.Activities.Activity # Ensure this alias is correct
+  # Ensure this alias is correct
+  alias ServerElixir.Activities.Activity
 
-  @valid_attrs %{type: "transportation", co2e: 10.5}
-  @update_attrs %{type: "electricity", co2e: 5.2}
-  @invalid_attrs %{type: nil, co2e: nil} # Or more specific invalid attrs
+  @valid_attrs %{type: "transportation", co2e: 10.5, timestamp: DateTime.utc_now()}
+  @update_attrs %{type: "electricity", co2e: 5.2, timestamp: DateTime.utc_now()}
+  # Or more specific invalid attrs
+  @invalid_attrs %{type: nil, co2e: nil}
 
   defp activity_fixture(attrs \\ %{}) do
     {:ok, activity} =
       attrs
-      |> Enum.into(@valid_attrs) # Merge provided attrs with defaults
+      # Merge provided attrs with defaults
+      |> Enum.into(@valid_attrs)
       |> Activities.create_activity()
 
     activity
@@ -69,7 +72,8 @@ defmodule ServerElixir.ActivitiesTest do
   describe "update_activity/2" do
     test "updates an activity with valid attributes" do
       activity = activity_fixture()
-      assert {:ok, %Activity{type: "electricity", co2e: 5.2} = updated_activity} =
+
+      assert {:ok, %Activity{type: "electricity", co2e: 5.2} = _updated_activity} =
                Activities.update_activity(activity, @update_attrs)
 
       # Optionally check if timestamp was updated if that's the behavior
@@ -99,8 +103,14 @@ defmodule ServerElixir.ActivitiesTest do
     test "returns an error when trying to delete a non-existent activity" do
       # This depends on how delete_activity is implemented.
       # If it takes an activity struct, and you pass one that wasn't found:
-      non_existent_activity_struct = %Activity{id: 999} # Or however you'd represent this
-      assert {:error, _reason} = Activities.delete_activity(non_existent_activity_struct)
+      # Or however you'd represent this
+      non_existent_activity_struct = %Activity{id: 999}
+
+      assert_raise(
+        Ecto.StaleEntryError,
+        fn -> Activities.delete_activity(non_existent_activity_struct) end
+      )
+
       # Or, if it takes an ID:
       # assert {:error, :not_found} = Activities.delete_activity_by_id(999)
     end
