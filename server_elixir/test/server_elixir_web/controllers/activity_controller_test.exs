@@ -2,7 +2,7 @@ defmodule ServerElixirWeb.ActivityControllerTest do
   use ServerElixirWeb.ConnCase, async: true
 
   alias ServerElixir.Activities
-  alias ServerElixir.Activities.Activity
+  # alias ServerElixir.Activities.Activity
 
   @valid_attrs %{type: "transportation", co2e: 10.5, timestamp: DateTime.utc_now()}
   @update_attrs %{type: "electricity", co2e: 5.2, timestamp: DateTime.utc_now()}
@@ -103,7 +103,7 @@ defmodule ServerElixirWeb.ActivityControllerTest do
     test "returns 404 when activity does not exist", %{conn: conn} do
       # Non-existent ID
       conn = get(conn, ~p"/api/activities/99999")
-      response_data = json_response(conn, 200)
+      response_data = json_response(conn, 404)
       # As per our ErrorJSON.render_not_found
       assert response_data["data"] == []
     end
@@ -157,7 +157,7 @@ defmodule ServerElixirWeb.ActivityControllerTest do
 
       # Verify it's gone by trying to fetch it
       conn_get = get(conn, ~p"/api/activities/#{activity.id}")
-      assert json_response(conn_get, 200)["data"] == []
+      assert json_response(conn_get, 404)["data"] == []
     end
 
     test "returns 404 when deleting a non-existent activity", %{conn: conn} do

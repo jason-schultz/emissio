@@ -88,14 +88,14 @@ defmodule ServerElixirWeb.ActivityController do
 
   def show(conn, %{"id" => id}) do
     case Activities.get_activity(id) do
-      activity ->
-        render(conn, :show, data: activity)
-
-      _ ->
+      nil ->
         conn
         |> put_status(:not_found)
         |> put_view(ServerElixirWeb.ErrorJSON)
-        |> render(:not_found_error, message: "Activity not found")
+        |> render(:not_found, message: "Activity not found")
+
+      activity ->
+        render(conn, :show, data: activity)
     end
   end
 end
