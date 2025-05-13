@@ -1,0 +1,26 @@
+/* ... (any existing styles) ... */
+
+.chart-wrapper {
+    position: relative;
+    height: 300px;
+    /* Or your desired height */
+    width: 100%;
+}
+
+/* Loading and Error states (can be shared or component-specific) */
+.loading-indicator,
+.error-message {
+    padding: var(--spacing-medium, 1.5rem);
+    text-align: center;
+    border-radius: var(--border-radius-medium, 6px);
+}
+
+.loading-indicator {
+    color: var(--text-color-muted, #6c757d);
+}
+
+.error-message {
+    color: var(--color-error-text, #721c24);
+    background-color: var(--color-error-background, #f8d7da);
+    border: 1px solid var(--color-error-border, #f5c6cb);
+}

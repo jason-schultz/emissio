@@ -1,4 +1,4 @@
-<app-card>
+<!-- <app-card>
     <h2>Top Sources</h2>
     <ul>
         @for (source of topSources; track source.source) {
@@ -12,4 +12,24 @@
             <span>No data available</span>
         </li>}
     </ul>
-</app-card>
+</app-card> -->
+<div class="top-sources-container card">
+    <div class="card-header">
+        <h3>Overall Top Emission Sources</h3>
+    </div>
+    <div class="card-content">
+        <div *ngIf="isLoading" class="loading-indicator">Loading top sources...</div>
+        <div *ngIf="error" class="error-message">{{ error }}</div>
+        <div *ngIf="!isLoading && !error && topSources.length > 0">
+            <ul class="top-sources-list">
+                <li *ngFor="let source of topSources" class="top-source-item">
+                    <span class="source-type">{{ source.type }}</span>
+                    <span class="source-co2e">{{ source.totalCo2e | number:'1.1-2' }} kg</span>
+                </li>
+            </ul>
+        </div>
+        <div *ngIf="!isLoading && !error && topSources.length === 0">
+            No emission sources data to display.
+        </div>
+    </div>
+</div>

@@ -1,5 +1,19 @@
-<app-card>
-    <h2>Weekly Emissions</h2>
-    <canvas baseChart [data]="chartData" [type]="chartType" [options]="chartOptions">
-    </canvas>
-</app-card>
+<div class="emission-chart-container card">
+    <div class="card-header">
+        <h3>Weekly Emission Summary</h3>
+    </div>
+    <div class="card-content">
+        <div *ngIf="isLoading" class="loading-indicator">Loading chart data...</div>
+        <div *ngIf="error" class="error-message">{{ error }}</div>
+        <div *ngIf="!isLoading && chartData && chartData.datasets && chartData.datasets[0].data.length > 0">
+            <!-- Placeholder for your chart library integration -->
+            <canvas baseChart [datasets]="chartData.datasets" [labels]="chartData.labels" [type]="'bar'"
+                [options]="chartOptions"></canvas>
+            <!-- <p>Weekly chart would display here.</p>
+            <pre>{{ chartData | json }}</pre> -->
+        </div>
+        <div *ngIf="!isLoading && (!chartData || !chartData.labels || chartData.labels.length === 0)">
+            No emission data to display for the week.
+        </div>
+    </div>
+</div>

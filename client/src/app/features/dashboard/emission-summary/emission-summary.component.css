@@ -1,0 +1,47 @@
+/* Styles for the emission summary card content */
+.emission-summary-container .card-content {
+    padding: var(--spacing-medium, 1.5rem);
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-small, 0.75rem) 0;
+    border-bottom: 1px solid var(--table-row-divider-color, #e9ecef);
+}
+
+.summary-item:last-child {
+    border-bottom: none;
+}
+
+.summary-label {
+    font-weight: var(--font-weight-medium, 500);
+    color: var(--text-color-secondary, #555);
+    margin-right: var(--spacing-medium, 1.5rem);
+}
+
+.summary-value {
+    font-size: 1.1em;
+    /* Make the value slightly larger */
+    font-weight: var(--font-weight-semibold, 600);
+    color: var(--text-color-default, #333);
+}
+
+/* Loading and Error states (can be shared or component-specific) */
+.loading-indicator,
+.error-message {
+    padding: var(--spacing-medium, 1.5rem);
+    text-align: center;
+    border-radius: var(--border-radius-medium, 6px);
+}
+
+.loading-indicator {
+    color: var(--text-color-muted, #6c757d);
+}
+
+.error-message {
+    color: var(--color-error-text, #721c24);
+    background-color: var(--color-error-background, #f8d7da);
+    border: 1px solid var(--color-error-border, #f5c6cb);
+}

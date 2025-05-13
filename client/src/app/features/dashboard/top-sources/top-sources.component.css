@@ -1,0 +1,57 @@
+/* Styles for the top sources card content */
+.top-sources-container .card-content {
+    padding: var(--spacing-medium, 1.5rem);
+}
+
+.top-sources-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.top-source-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-small, 0.75rem) 0;
+    border-bottom: 1px solid var(--table-row-divider-color, #e9ecef);
+}
+
+.top-source-item:last-child {
+    border-bottom: none;
+}
+
+.source-type {
+    font-weight: var(--font-weight-medium, 500);
+    color: var(--text-color-secondary, #555);
+    text-transform: capitalize;
+    /* Optional: capitalize the type */
+}
+
+.source-co2e {
+    font-weight: var(--font-weight-semibold, 600);
+    color: var(--text-color-default, #333);
+    background-color: var(--color-surface-alt, #f8f9fa);
+    /* Subtle background for the value */
+    padding: var(--spacing-xsmall, 0.25rem) var(--spacing-small, 0.5rem);
+    border-radius: var(--border-radius-small, 4px);
+    font-size: 0.9em;
+}
+
+/* Loading and Error states (can be shared or component-specific) */
+.loading-indicator,
+.error-message {
+    padding: var(--spacing-medium, 1.5rem);
+    text-align: center;
+    border-radius: var(--border-radius-medium, 6px);
+}
+
+.loading-indicator {
+    color: var(--text-color-muted, #6c757d);
+}
+
+.error-message {
+    color: var(--color-error-text, #721c24);
+    background-color: var(--color-error-background, #f8d7da);
+    border: 1px solid var(--color-error-border, #f5c6cb);
+}
